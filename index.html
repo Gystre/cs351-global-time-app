@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <select id="city-selector">
+        <option value="UTC">UTC (Coordinated Universal Time)</option>
+        <option value="NewYork">New York, USA</option>
+        <option value="London">London, UK</option>
+        <option value="Sydney">Sydney, Australia</option>
+        <option value="Tokyo">Tokyo, Japan</option>
+        <!-- Add more cities as needed -->
+    </select>
+    <button onclick="addCityTime()">Add City Time</button>
+    <div id="clocks"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
