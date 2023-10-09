@@ -1,21 +1,15 @@
-.container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-    padding: 20px;
-}
-
-#clocks {
-    margin-top: 20px;
+* {
+  margin: 0px;
+  padding: 0px;
 }
 
 .city-clock {
-    display: inline-block;
-    border: 1px solid #ddd;
-    margin: 10px;
-    padding: 10px;
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 10px;
 }
 
 .time-display {
-    font-weight: bold;
+  font-weight: bold;
 }
