@@ -25,7 +25,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <title>World Clock</title>
+    <title>The World Clock</title>
   </head>
   <body>
     <div
@@ -38,29 +38,18 @@
     >
       <div style="margin-top: 64px"></div>
 
-      <h1>World Clock Viewer</h1>
+      <h1>The World Clock</h1>
       <p>
         Select a timezone from the dropdown below to see what time it is in that
         city!
       </p>
       <div style="display: flex; align-items: center">
-        <!-- <select id="city-selector">
-          <option value="UTC">UTC (Coordinated Universal Time)</option>
-          <option value="NewYork">New York, USA</option>
-          <option value="London">London, UK</option>
-          <option value="Sydney">Sydney, Australia</option>
-          <option value="Tokyo">Tokyo, Japan</option>
-          Add more cities as needed
-        </select> -->
         <select
           id="city-selector"
           class="js-example-basic-single"
           style="min-width: 256px"
           name="state"
-        >
-          <!-- <option value="AL">Alabama</option>
-          <option value="WY">Wyoming</option> -->
-        </select>
+        ></select>
         <button
           style="
             border: none;
@@ -74,11 +63,35 @@
           "
           onclick="addCityTime()"
         >
-          Add City
+          Add
         </button>
       </div>
-      <div class="margin-top: 24px;"></div>
-      <div id="clocks"></div>
+      <div
+        id="clocks"
+        style="
+          margin-top: 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        "
+      >
+        <div
+          id="clock-template"
+          class="city-clock"
+          style="
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            width: 512px;
+            border: 2px solid #888;
+            border-radius: 8px;
+            padding: 8px;
+          "
+        >
+          <h5 class="timezone">New_York, America</h5>
+          <h1 class="time">6:15:47 PM</h1>
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>

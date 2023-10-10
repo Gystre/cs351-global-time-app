@@ -14,29 +14,36 @@
 //   return new Date(utcTime + cityOffset);
 // }
 
+// America/New_York -> New York, America
+function getReadableTimezoneName(timezone) {
+  let split = timezone.split("/");
+  let country = split[0];
+  let city = split[1];
+
+  return city + ", " + country;
+}
+
+function getReadableTime(timezone) {
+  let date = new Date();
+  return date.toLocaleTimeString("en-US", { timeZone: `${timezone}` });
+}
+
 // creats a div with the city name and the time in #clocks
 function addClockDiv(timeZone) {
-  let date = new Date();
-  let strTime = date.toLocaleString("en-US", { timeZone: `${timeZone}` });
+  // clone the template
+  const template = document.getElementById("clock-template").cloneNode(true);
+  template.style.display = "flex";
+  template.setAttribute("value", timeZone);
 
-  // container div to store the time and the city name
-  const container = document.createElement("div");
-  container.className = "city-clock";
-  container.value = timeZone;
+  // find the timezone class
+  let timezone = template.querySelector(".timezone");
+  timezone.textContent = getReadableTimezoneName(timeZone);
 
-  // city name
-  const cityNameDiv = document.createElement("div");
-  cityNameDiv.textContent = timeZone;
+  // fill in the time
+  let time = template.querySelector(".time");
+  time.textContent = getReadableTime(timeZone);
 
-  // the time
-  const timeDisplayDiv = document.createElement("div");
-  timeDisplayDiv.className = "time-display";
-  timeDisplayDiv.textContent = strTime;
-
-  container.appendChild(cityNameDiv);
-  container.appendChild(timeDisplayDiv);
-
-  document.getElementById("clocks").appendChild(container);
+  document.getElementById("clocks").appendChild(template);
 }
 
 // called when the user clicks the button "Add City"
@@ -44,8 +51,6 @@ function addCityTime() {
   const timeZone = document.getElementById("city-selector").value;
   addClockDiv(timeZone);
 }
-
-addClockDiv("America/New_York");
 
 $(document).ready(function () {
   // initialize select2
@@ -55,12 +60,7 @@ $(document).ready(function () {
   let timezones = Intl.supportedValuesOf("timeZone");
 
   for (let i = 0; i < timezones.length; i++) {
-    // country/city
-    let split = timezones[i].split("/");
-    let country = split[0];
-    let city = split[1];
-
-    let name = city + ", " + country;
+    let name = getReadableTimezoneName(timezones[i]);
 
     $("#city-selector").append(
       $("<option></option>").attr("value", timezones[i]).text(name)
@@ -72,12 +72,16 @@ $(document).ready(function () {
     let clocks = document.getElementsByClassName("city-clock");
 
     for (let i = 0; i < clocks.length; i++) {
-      let timeZone = clocks[i].value;
-      let date = new Date();
-      let strTime = date.toLocaleString("en-US", { timeZone: `${timeZone}` });
+      if (clocks[i].style.display == "none") continue;
 
-      clocks[i].children[1].textContent = strTime;
+      let timeZone = clocks[i].getAttribute("value");
+      let timeDiv = clocks[i].querySelector(".time");
+
+      timeDiv.innerHTML = getReadableTime(timeZone);
     }
   }
   setInterval(updateClocks, 1000);
 });
+
+// add an exmaple clock
+addClockDiv("America/New_York");
